@@ -8,6 +8,7 @@ import Layout from './pages/Layout'
 import Home from './pages/Home'
 import Article from './pages/Article'
 import Publish from './pages/Publish'
+import Practice  from './pages/Practice'
 import { HistoryRouter, history } from './utils/history'
 
 
@@ -30,6 +31,7 @@ export default function App() {
             <Route index element={<Home />} /> {/* 默认路由 */}
             <Route path="article" element={<Article />} />
             <Route path="publish" element={<Publish />} />
+            <Route path="practice" element={<Practice />} />
           </Route>
         </Routes>
     </HistoryRouter>

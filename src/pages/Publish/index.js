@@ -69,7 +69,7 @@ const Publish = () => {
 
   //4、表单提交
   const onFinish = async (values) => {
-    // 数据的二次处理 重点是处理cover字段
+    console.log(values)
     const { type, ...rest } = values
     const data = {
       ...rest,
@@ -91,7 +91,6 @@ const Publish = () => {
   //5、路由数据：是否存在文章ID  
   const [params] = useSearchParams()
   const articleId = params.get('id')
-  console.log(articleId)
   // 获取文章数据
   const [form] = Form.useForm()
   useEffect(() => {
@@ -131,7 +130,7 @@ const Publish = () => {
         title={
           <Breadcrumb separator=">">
             <Breadcrumb.Item>
-              <Link to="/home">首页</Link>
+              <Link to="/">首页</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               {articleId ? '修改文章' : '发布文章'}

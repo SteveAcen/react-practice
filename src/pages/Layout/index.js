@@ -6,7 +6,7 @@ import {
     LogoutOutlined //退出
 } from '@ant-design/icons'
 import './index.scss'
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation,useNavigate } from 'react-router-dom'
 import { useStore } from '@/store'
 import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
@@ -14,6 +14,8 @@ import { observer } from 'mobx-react-lite'
 const { Header, Sider } = Layout
 
 const GeekLayout = () => {
+
+
     //用户信息
     const {userStore} = useStore()
     useEffect(() => {
@@ -25,15 +27,23 @@ const GeekLayout = () => {
         }
     },[userStore])
     
+    //退出登录
+    const {loginStore} = useStore()
+    const navigate = useNavigate()
+    const onLogout = () => {
+        loginStore.loginOut()
+        navigate('/login')
+    }
 
     //导航数据
     const menuItems = [
         { key: '/', icon: <HomeOutlined />, label: <Link to="/">数据概览</Link>},
         { key: '/article', icon: <DiffOutlined />, label: <Link to="/article">内容管理</Link> },
         { key: '/publish', icon: <EditOutlined />, label: <Link to="/publish">发布文章</Link> },
+        { key: '/practice', icon: <EditOutlined />, label: <Link to="/practice">练习组件</Link> },
     ]
-
-     //导航高亮：获取当前激活的path路径
+    
+    //导航高亮：获取当前激活的path路径
     const {pathname} = useLocation()
     return (
         <Layout>
@@ -42,7 +52,9 @@ const GeekLayout = () => {
                 <div className="user-info">
                     <span className="user-name">{userStore.userInfo.name}</span>
                     <span className="user-logout">
-                        <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
+                        <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消"
+                        onConfirm={onLogout}
+                        >
                             <LogoutOutlined /> 退出
                         </Popconfirm>
                     </span>
